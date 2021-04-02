@@ -1,3 +1,5 @@
+# 0.可以参考如下项目，里面有大量bash相关的命令实例
+[bash实例操作](https://github.com/wangdoc/bash-tutorial)
 # 1. shell中的变量
 
 ## 1. 常用系统变量
