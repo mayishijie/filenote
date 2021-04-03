@@ -8,3 +8,4 @@
 7. [mr开发总结](https://juejin.cn/post/6946908034438266917/)
 8. [Yarn资源调度](https://juejin.cn/post/6946926068288897055/)
 9. [hadoop之HA](https://juejin.cn/post/6946933130963976222/)
+10. [hdfs小结](https://juejin.cn/post/6946953101769179166/)
