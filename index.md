@@ -7,3 +7,4 @@
 6. [hadoop之outputFormat](https://juejin.cn/post/6946904892497887268/)
 7. [mr开发总结](https://juejin.cn/post/6946908034438266917/)
 8. [Yarn资源调度](https://juejin.cn/post/6946926068288897055/)
+9. [hadoop之HA](https://juejin.cn/post/6946933130963976222/)
