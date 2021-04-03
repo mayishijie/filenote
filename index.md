@@ -6,3 +6,4 @@
 5. [hadoop之MapTask机制以及ReduceTask工作机制](https://juejin.cn/post/6946867347697172510/)
 6. [hadoop之outputFormat](https://juejin.cn/post/6946904892497887268/)
 7. [mr开发总结](https://juejin.cn/post/6946908034438266917/)
+8. [Yarn资源调度](https://juejin.cn/post/6946926068288897055/)
