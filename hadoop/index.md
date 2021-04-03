@@ -2,3 +2,4 @@
 2. [Hadoop之调优](https://juejin.cn/post/6946694691265970207/)
 3. [Hadoop之shuffle](https://juejin.cn/post/6946851050515071013/)
 4. [hadoop之分区，排序，combiner](https://juejin.cn/post/6946859671529619486/)
+5. [hadoop之MapTask机制以及ReduceTask工作机制](https://juejin.cn/post/6946867347697172510/)
