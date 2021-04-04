@@ -291,6 +291,15 @@ ON     d.loc = l.loc;
 
 ## 2. 按别名或多列排序，与MySQL一致
 
+```sql
+-- 别名排序
+select ename, sal*2 twosal from emp order by twosal;
+-- 多列排序
+select ename, deptno, sal from emp order by deptno, sal ;
+```
+
+
+
 ## 3. sort by(每个MR内部排序)
 
 > Sort By：对于大规模的数据集order by的效率非常低。在很多情况下，并不需要全局排序，此时可以使用**sort by**。
@@ -312,4 +321,59 @@ insert overwrite local directory '/home/mayi/sortby-result'
 ```
 
 ## 4. Distribute By（分区排序）
+
+> Distribute By： 在有些情况下，我们需要控制某个特定行应该到哪个reducer，通常是为了进行后续的聚集操作。***distribute by*** 子句可以做这件事。***distribute by***类似MR中partition（自定义分区），进行分区，结合sort by使用。 
+>
+> 
+>
+> 对于distribute by进行测试，一定要分配多reduce进行处理，否则无法看到distribute by的效果。
+
+1. 实例操作
+
+   ```sql
+   -- 先按照部门编号分区，再按照员工编号降序排序。
+   set mapreduce.job.reduces=3;
+   insert overwrite local directory '/home/mayi/distribute-result' select deptno,empno from emp distribute by deptno sort by empno desc;
+   ```
+
+2. **注意：**
+
+   >1. distribute by的分区规则是根据分区字段的hash码与reduce的个数进行模除后，余数相同的分到一个区。
+   >
+   >2. Hive要求DISTRIBUTE BY语句要写在SORT BY语句之前。
+
+## 5. Cluster By(功能没有distribute by结合sort by强大)
+
+> 当distribute by和sorts by字段相同时，可以使用cluster by方式。
+
+1. 注意点：
+
+> cluster by除了具有distribute by的功能外还兼具sort by的功能。但是排序**只能是升序排序**，**不能指定排序规则**为ASC或者DESC。
+
+2. 实例
+
+```sql
+-- 下面两种方式是等价的
+select * from emp cluster by deptno;
+select * from emp distribute by deptno sort by deptno;
+```
+
+> 注意：按照部门编号分区，不一定就是固定死的数值，可以是20号和30号部门分到一个分区里面去。
+
+# 11. 抽样查询
+
+> 对于非常大的数据集，有时用户需要使用的是一个具有代表性的查询结果而不是全部结果。Hive可以通过对表进行抽样来满足这个需求。
+
+实例
+
+```sql
+select * from backet_num tablesample(bucket 1 out of 16 on num);
+-- 注：tablesample是抽样语句，语法：TABLESAMPLE(BUCKET x OUT OF y) 。
+```
+
+> 1. **y必须是table总bucket数的倍数或者因子**。hive根据y的大小，决定抽样的比例。例如，table总共分了4份，当y=2时，抽取(4/2=)2个bucket的数据，当y=8时，抽取(4/8=)1/2个bucket的数据。
+>
+> 2. **x表示从哪个bucket开始抽取**，如果需要取多个分区，以后的分区号为当前分区号加上y。例如，table总bucket数为4，tablesample(bucket 1 out of 2)，表示总共抽取（4/2=）2个bucket的数据，抽取第1(x)个和第3(x+y)个bucket的数据。
+>
+> 注意：x的值必须小于等于y的值
 
