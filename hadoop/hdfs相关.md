@@ -8,6 +8,9 @@
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e8c940878f1c41ebb1f8f130beddddc5~tplv-k3u1fbpfcp-watermark.image)
 # 4. NN和2NN工作机制
+
+（**Hadoop引入HA之后，就可以不用SecondaryNameNode了，因为主从备份的HADOOP-HA可以取代它**）
+
 ## 2NN的引入以及NN架构的思考
 1. NameNode元数据存储位置：存储在内存
 2. 为避免数据丢失，提高可靠性，还需要存放在磁盘中，**因此产生在磁盘中备份元数据的FsImage。**
