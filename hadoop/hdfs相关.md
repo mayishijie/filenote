@@ -209,4 +209,89 @@ sbin/yarn-daemon.sh start nodemanager
 
 ### 1. 添加白名单
 
+配置步骤
+
+1. 在NameNode的/opt/module/hadoop-3.1.3/etc/hadoop目录下创建dfs.hosts文件
+
+```shell
+touch dfs.hosts
+```
+
+​	添加主机名（退役主机不要加进来）
+
+```shell
+mayi101
+mayi102
+```
+
+2. hdfs-site.xml添加dfs.hosts属性
+
+   ```xml
+   <property>
+   <name>dfs.hosts</name>
+   <value>/opt/module/hadoop-3.1.3/etc/hadoop/dfs.hosts</value>
+   </property>
+   ```
+
+3. 配置文件分发
+
+   ```shell
+   xsync hdfs-site.xml
+   ```
+
+   
+
+4. 刷新nameNode
+
+   ```shell
+    hdfs dfsadmin -refreshNodes
+   ```
+
+5. 刷新ResourceManager
+
+   ```shell
+   yarn rmadmin -refreshNodes
+   ```
+
+   
+
+6. web上可以查看
+
+
+
 ### 2. 黑名单退役
+
+在黑名单上面的主机都会被强制退出。
+
+类似于操作白名单
+
+1. 在Hadoop目录下创建touch dfs.hosts.exclude 文件
+
+2. 添加下架主机名mayi103
+
+3. 配置hdfs-site.xml
+
+   ```xml
+   <property>
+   <name>dfs.hosts.exclude</name>
+         <value>/opt/module/hadoop-3.1.3/etc/hadoop/dfs.hosts.exclude</value>
+   </property>
+   ```
+
+   
+
+4. 刷新namenode
+
+5. 刷新resourceManager
+
+6. 等待该节点状态为decommissioned(web上可以查看)，停止进程
+
+   ```shell
+   hdfs --daemon stop datanode
+   sbin/yarn-daemon.sh stop nodemanager
+   ```
+
+   
+
+7. 
+
