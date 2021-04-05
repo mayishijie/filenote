@@ -451,3 +451,201 @@ into table score;
 
 ## 7. 日期函数
 
+1. 日期时间转日期函数: to_date
+
+   > **语法**: to_date(string timestamp)
+   > **返回值**: string
+   > **说明**: 返回日期时间字段中的日期部分。
+   >
+   > ```sql
+   > hive> select to_date('2011-12-08 10:03:01') from iteblog;
+   > 2011-12-08
+   > ```
+
+2. 日期转年函数
+
+   ```sql
+   hive> select year('2011-12-08 10:03:01') from iteblog;
+   2011
+   hive> select year('2012-12-08') from iteblog;
+   2012
+   ```
+
+   
+
+3. 日期转月函数
+
+   ```sql
+   hive> select month('2011-12-08 10:03:01') from iteblog;
+   12
+   hive> select month('2011-08-08') from iteblog;
+   8
+   ```
+
+   
+
+4. 日期转天函数(小时，分钟类推)
+
+   ```sql
+   hive> select day('2011-12-08 10:03:01') from iteblog;
+   8
+   hive> select day('2011-12-24') from iteblog;
+   24
+   
+   ```
+
+   
+
+5. 日期转周： weekofyear
+
+   ```sql
+   hive> select weekofyear('2011-12-08 10:03:01') from iteblog;
+   49
+   ```
+
+   
+
+6. 日期比较：datediff
+
+   ```sql
+   hive> select datediff('2012-12-08','2012-05-09') from iteblog;
+   213
+   ```
+
+   
+
+7. 日期增加:date_add
+
+   ```sql
+   hive> select date_add('2012-12-08',10) from iteblog;
+   2012-12-18
+   
+   --今天开始90天以后的日期
+   select date_add(current_date(), 90);
+   ```
+
+   
+
+8. 日期减少:date_sup
+
+   ```sql
+   hive> select date_sub('2012-12-08',10) from iteblog;
+   2012-11-28
+   ```
+
+   
+
+9. 当前日期：current_date
+
+   ```sql
+   select current_date();
+   ```
+
+## 8. 条件函数
+
+1. if
+
+   ```sql
+   hive> select if(1=2,100,200) from iteblog;
+   200
+   ```
+
+   
+
+2. case when
+
+# 3. 自定义函数
+
+> 根据用户自定义函数类别，分为以下三种
+>
+> 1. UDF(User-Defined-Function):一进一出
+>
+> 2. UDAF:
+>
+>    聚集函数，一进多出
+>
+>    类似于：count/max/min
+>
+> 3. UDTF
+>
+>    一进多出
+>
+>    如:lateral view explore()
+
+## 1. 自定义函数编程步骤
+
+（1）继承org.apache.hadoop.hive.ql.exec.UDF
+
+（2）需要实现evaluate函数；evaluate函数支持重载；
+
+（3）在hive的命令行窗口创建函数
+
+## 2. 自定义UDF实例
+
+1. 创建一个maven工程
+
+2. 导入依赖
+
+   ```xml
+   <dependencies>
+   		<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec -->
+   		<dependency>
+   			<groupId>org.apache.hive</groupId>
+   			<artifactId>hive-exec</artifactId>
+   			<version>1.2.2 </version>
+   		</dependency>
+   </dependencies>
+   ```
+
+   
+
+3. 创建一个类
+
+   ```java
+   import org.apache.hadoop.hive.ql.exec.UDF;
+   
+   /**
+    * @author mayi
+    * @version 1.0 2021-04-05 19:28
+    */
+   public class CustomUdf extends UDF {
+       public String evaluate (final String s) {
+   
+           if (s == null) {
+               return null;
+           }
+   
+           return s.toLowerCase();
+       }
+   }
+   ```
+
+   
+
+4. 打成jar包上传到服务器
+
+5. 将jar包添加到hive的classpath(hive的安装目录，lib中，然后执行下面的命令)
+
+   ```shell
+   hive (mayi)> add jar /opt/software/apache-hive-1.2.2-bin/lib/hive-udf-1.0-SNAPSHOT.jar;
+   Added [/opt/software/apache-hive-1.2.2-bin/lib/hive-udf-1.0-SNAPSHOT.jar] to class path
+   Added resources: [/opt/software/apache-hive-1.2.2-bin/lib/hive-udf-1.0-SNAPSHOT.jar]
+   ```
+
+   
+
+6. 创建临时函数与开发好的Java class关联
+
+   ```sql
+   hive (default)> create temporary function mylower as "com.mayishijie.CustomUdf"
+   ```
+
+   
+
+7. 可以在HQL中使用自定义函数
+
+   ```sql
+   hive (default)> select ename, mylower(ename) lowername from emp;
+   ```
+
+   
