@@ -15,7 +15,7 @@
 2. [hive之查询](https://juejin.cn/post/6947447084689653790/)
 3. [hive之常用函数小结](https://juejin.cn/post/6947602586232946701)
 4. [hive之分区表和分桶表](https://juejin.cn/post/6947880388656300045/)
-
+5. [hive之调优](https://juejin.cn/post/6947908931305865230/)
 # 3. zookeeper相关
 
 
