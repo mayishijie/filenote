@@ -34,3 +34,5 @@
 # 9. Azkaban相关
 # 10. scala相关
 # 11. 算法相关
+# 12 flume相关
+1. [flume的一些基本概念以及原理分析](https://juejin.cn/post/6948427995182792711/)
