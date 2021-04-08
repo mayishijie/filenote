@@ -17,7 +17,7 @@
 4. [hive之分区表和分桶表](https://juejin.cn/post/6947880388656300045/)
 5. [hive之调优](https://juejin.cn/post/6947908931305865230/)
 6. [hive之数据导入与导出](https://juejin.cn/post/6948055525787942919/)
-
+7. [hive中碰到的坑和问题](https://juejin.cn/post/6948649511250034718/)
 # 3. zookeeper相关
 
 
