@@ -19,10 +19,12 @@
 6. [hive之数据导入与导出](https://juejin.cn/post/6948055525787942919/)
 7. [hive中碰到的坑和问题](https://juejin.cn/post/6948649511250034718/)
 # 3. zookeeper相关
-
+1. [zookeeper基础](https://juejin.cn/post/6933143534493138958/)
 
 # 4. kafka相关
-
+1. [kafka原理](https://juejin.cn/post/6933866462595710984/)
+2. [kafka集群安装与配置](https://juejin.cn/post/6933748378534674445)
+3. [kafka集群监控](https://juejin.cn/post/6932820870201245709)
 # 5. spark相关
 
 # 6. flink相关
@@ -36,3 +38,4 @@
 # 11. 算法相关
 # 12 flume相关
 1. [flume的一些基本概念以及原理分析](https://juejin.cn/post/6948427995182792711/)
+
