@@ -30,6 +30,7 @@
 # 6. flink相关
 1. [flink之硅谷文档](https://confucianzuoyuan.github.io/flink-tutorial/)
 2. [其它人的一些参考笔记](https://ashiamd.github.io/docsify-notes/#/study/BigData/Flink/%E5%B0%9A%E7%A1%85%E8%B0%B7Flink%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)
+3. [flink基础分析](https://juejin.cn/post/6950449642291068942/)
 
 # 7. Hbase相关
 # 8. sqoop相关
